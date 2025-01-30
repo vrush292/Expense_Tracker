@@ -15,12 +15,12 @@
     </div>
 
     <div class="container">
-        <div class="forms-container">
+        <div class="forms-container blur-container">
             <!-- Image Section -->
             <div class="image-section">
                 <img src="static/tracker.jpg" alt="Expense Tracker">
                 <h3>Track Your Expenses</h3>
-                <p>Take control of your finances with our easy-to-use expense tracker</p>
+                <p>Save money and money will save you!</p>
             </div>
 
             <div class="login-register">
@@ -87,15 +87,11 @@
             </div>
         </div>
         
-        <!-- Success Tick Animation -->
-        <div id="success-tick-container">
-            <div class="success-tick">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 6L9 17l-5-5"/>
-                </svg>
-                <p class="success-message">Login Successful!</p>
-            </div>
-        </div>
+        
+        <!-- Success Message Section -->
+<div id="success-message" class="hidden">
+    <h1 class="success-text">Login Successful</h1>
+</div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
