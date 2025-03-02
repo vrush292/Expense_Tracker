@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use the Expense Tracker Application</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #818cf8;
+            --accent-color: #6366f1;
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --text-light: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f3f4f6;
+            --bg-dark: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+    body {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    padding: 2rem;
+    overflow-y: auto;
+    background-image: url('static/use_back.jpeg');
+    background-size: cover; /* Cover the entire area */
+    
+   
+}
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            font-size: 1.75rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+
+        /* Content Section */
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            width: 100%; /* Full width */
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-section h2 {
+            margin-bottom: 1rem;
+        }
+
+        .content-section p {
+            line-height: 1.7;
+        }
+
+        /* Links */
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--bg-dark);
+            color: white;
+            font-size: 0.875rem;
+        }
+
+        /* FAQ Styles */
+        .faq {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: var(--bg-secondary);
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .faq:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .faq h3 {
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .faq p {
+            margin-left: 1rem;
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>How to Use the Expense Tracker Application</h1>
+
+        <div class="content-section ">
+            <h2>Getting Started</h2>
+            <p>To start using the application:</p>
+            <ol>
+                <li>Create an account or log in if you already have one.</li>
+                <li>Navigate to the <strong>Income</strong> section to add your income sources.</li>
+                <li>Go to the <strong>Expense</strong> section to log your expenses.</li>
+                <li>Set your budget in the <strong>Budget</strong> section to manage your spending.</li>
+                <li>Define your financial goals in the <strong>Goals</strong> section and monitor your progress.</li>
+            </ol>
+        </div>
+
+        <div class="content-section" id="questions">
+            <h2>Frequently Asked Questions (FAQs)</h2>
+            <div class="faq">
+                <h3>1. How do I add my income?</h3>
+                <p>To add your income, go to the Income section and click on "Add Income." Fill in the required details and save.</p>
+            </div>
+            <div class="faq">
+                <h3>2. Can I set a budget for different categories?</h3>
+                <p>Yes! In the Budget section, you can set budgets for various categories such as groceries, entertainment, etc.</p>
+            </div>
+            <div class="faq">
+                <h3>3. How can I track my expenses effectively?</h3>
+                <p>To track your expenses, navigate to the Expense section and click on "Add Expense." Enter the details of your expense and save it to keep a record.</p>
+            </div>
+            <div class="faq">
+                <h3>4. What if I exceed my budget?</h3>
+                <p>If you exceed your budget, the application will notify you. You can then adjust your spending or modify your budget as needed.</p>
+            </div>
+            <div class="faq">
+                <h3>5. How do I set financial goals?</h3>
+                <p>To set financial goals, go to the Goals section and click on "Add Goal." Fill in the details and track your progress over time.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Need More Help?</h2>
+            <p>If you have more questions or need assistance, feel free to contact our support team.</p>
+            <a href="mailto:vrushalikarlekar2@gmail.com">Contact Support</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Expense Tracker. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

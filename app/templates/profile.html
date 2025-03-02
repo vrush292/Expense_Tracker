@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker - Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile_style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Mobile menu button -->
+        <button id="menuToggle" class="mobile-menu-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon">
+                <line x1="4" x2="20" y1="12" y2="12"></line>
+                <line x1="4" x2="20" y1="6" y2="6"></line>
+                <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+        </button>
+
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-header">
+                    <h1 class="app-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dollar-icon">
+                            <line x1="12" x2="12" y1="2" y2="22"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                        ExpenseTracker
+                    </h1>
+                </div>
+                
+                <nav class="sidebar-nav">
+                    <ul class="nav-list">
+                        <li>
+                            <a href="/home" class="nav-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon">
+                                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('api.logout')}}" class="nav-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                    <polyline points="16 17 21 12 16 7"></polyline>
+                                    <line x1="21" x2="9" y1="12" y2="12"></line>
+                                </svg>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="sidebar-footer">
+                    <div class="user-info">
+                        <p class="user-name">{{ user.username }}</p>
+                        <p class="user-role">Profile</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="main-content">
+            <div class="content-container">
+                <!-- Profile header -->
+                <div class="profile-header">
+                    <div class="profile-banner">
+                        <h1 class="banner-name">{{ user.username }}</h1>
+                    </div>
+                    <div class="profile-info">
+                        <div class="profile-details">
+                            <p class="profile-email">{{ user.email }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile details -->
+                <div class="profile-content">
+                    <!-- Bio section -->
+                    <div class="bio-section">
+                        <div class="card">
+                            <h3 class="card-title">Bio</h3>
+                            <p class="bio-text">{{ user.bio }}</p>
+                            
+                            <div class="action-buttons">
+                              <button id="updateAccountBtn" class="btn btn-primary" onclick="document.getElementById('updateAccountModal').style.display='block'">
+                                  Update Account
+                              </button>
+                              <button id="deleteAccountBtn" class="btn btn-danger" onclick="document.getElementById('deleteAccountModal').style.display='block'">
+                                  Delete Account
+                              </button>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-links-section">
+                      <div class="card">
+                        <h3 class="card-title">Quick Links</h3>
+                        <ul class="quick-links">
+                          <li>
+                            <a href="/records" class="quick-link">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="quick-link-icon">
+                                <line x1="12" x2="12" y1="2" y2="22"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                              </svg>
+                              <span>My Income and expense</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="/budget" class="quick-link">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="quick-link-icon">
+                                <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                                <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                              </svg>
+                              <span>My Budget</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="/goal" class="quick-link">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="quick-link-icon">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="6"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                              </svg>
+                              <span>My Goals</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+
+        <!-- Update Account Modal -->
+<div id="updateAccountModal" class="modal" style="display:none;">
+  <div class="modal-content">
+      <span class="close" onclick="document.getElementById('updateAccountModal').style.display='none'">&times;</span>
+      <h3>Update Account</h3>
+      <form action="{{ url_for('api.update_account') }}" method="POST">
+          <input type="text" name="username" value="{{ user.username }}" required placeholder="Username"><br>
+          <input type="email" name="email" value="{{ user.email }}" required placeholder="Email"><br>
+          <textarea name="bio" placeholder="Your bio">{{ user.bio }}</textarea><br>
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit">Save</button>
+          <button type="button" onclick="document.getElementById('updateAccountModal').style.display='none'">Cancel</button>
+      </form>
+  </div>
+</div>
+
+<!-- Delete Account Confirmation Modal -->
+<div id="deleteAccountModal" class="modal" style="display:none;">
+  <div class="modal-content">
+      <span class="close" onclick="document.getElementById('deleteAccountModal').style.display='none'">&times;</span>
+      <h3>Are you sure you want to delete your account?</h3>
+      <form action="{{ url_for('api.delete_account') }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit">Yes, Delete</button>
+          <button type="button" onclick="document.getElementById('deleteAccountModal').style.display='none'">Cancel</button>
+      </form>
+  </div>
+</div>
+        <!-- Overlay for mobile menu -->
+        <div id="overlay" class="overlay"></div>
+    </div>
+
+    <script>
+      // Wait for the DOM to be fully loaded
+      document.addEventListener('DOMContentLoaded', function() {
+    const updateModal = document.getElementById('updateAccountModal');
+    const deleteModal = document.getElementById('deleteAccountModal');
+    
+    // Open modals
+    document.getElementById('updateAccountBtn').onclick = function() {
+        updateModal.style.display = 'block';
+    };
+    
+    document.getElementById('deleteAccountBtn').onclick = function() {
+        deleteModal.style.display = 'block';
+    };
+    
+    // Close modals when clicking on <span> (x)
+    document.querySelectorAll('.close').forEach(function(span) {
+        span.onclick = function() {
+            updateModal.style.display = 'none';
+            deleteModal.style.display = 'none';
+        };
+    });
+    
+    // Close modals when clicking outside of them
+    window.onclick = function(event) {
+        if (event.target === updateModal) {
+            updateModal.style.display = 'none';
+        }
+        if (event.target === deleteModal) {
+            deleteModal.style.display = 'none';
+        }
+    };
+    
+    // Close modals with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            if (updateModal.style.display === 'block') {
+                updateModal.style.display = 'none';
+            }
+            if (deleteModal.style.display === 'block') {
+                deleteModal.style.display = 'none';
+            }
+        }
+    });
+});
+  </script>
+</body>
+</html>

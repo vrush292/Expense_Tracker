@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker - Login</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login_style.css') }}">
+</head>
+<body>
+    <button class="back-button" onclick="window.history.back();">
+        <svg class="lucide lucide-arrow-left" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6"/>
+        </svg>
+    </button>
+    <!-- Floating shapes in background -->
+    <div class="shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <div class="forms-container blur-container">
+            <!-- Image Section -->
+            <div class="image-section">
+                <img src="static/tracker.jpg" alt="Expense Tracker">
+                <h3>Track Your Expenses</h3>
+                <p>Save money and money will save you!</p>
+            </div>
+
+            <div class="login-register">
+                <!-- Login Form -->
+                <form action="{{ url_for('api.login') }}" class="login-form" method="post">
+                    <h2 class="title">Welcome Back</h2>
+                    <div class="flash-messages" id="flash-messages">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }} show">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+
+                    <div class="input-field">
+                        <input type="text" placeholder="Username" name="username" required>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" placeholder="Password" name="password" required>
+                    </div>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn">Login</button>
+                    <div class="toggle-panel">
+                        <p>Don't have an account?</p>
+                        <button type="button" class="toggle-btn" onclick="toggleForms('register')">Create Account</button>
+                    </div>
+                </form>
+
+                <!-- Register Form -->
+                <form action="{{ url_for('api.register') }}" class="register-form hidden" method="post" onsubmit="return validatePassword(this)">
+                    <h2 class="title">Create Account</h2>
+                    <div class="flash-messages" id="flash-messages">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }} show">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+
+                    <div class="input-field">
+                        <input type="text" placeholder="Username" name="username" required>
+                    </div>
+                    <div class="input-field">
+                        <input type="email" placeholder="EmailID" name="email" required>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" placeholder="Password" name="password" required>
+                    </div>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn">Sign Up</button>
+                    <div class="toggle-panel">
+                        <p>Already have an account?</p>
+                        <button type="button" class="toggle-btn" onclick="toggleForms('login')">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+             function validatePassword(form) {
+            const password = form.password.value;
+            const confirm = form.confirm_password ? form.confirm_password.value : '';
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters long.");
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
+        }
+       </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    
+</body>
+</html>

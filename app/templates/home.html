@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='home_style.css') }}">
+</head>
+<body>
+  <!-- Menu Bar -->
+  <div class="menu-bar">
+    <div class="logo">ExpenseTracker</div>
+    <div class="menu-items">
+      <a href="{{ url_for('api.profile') }}">Profile</a>
+      <a href="{{ url_for('api.goal') }}">Goals&Savings</a>
+      <a href="{{ url_for('api.budget') }}">Budget</a>
+      <a href="{{ url_for('api.logout') }}" onclick="return confirm('Are you sure you want to log out?');">Logout</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <header>
+      <h1>Let me see your pocket ^^</h1>
+      <p class="balance">This Month Expendable Balance: 
+        <span id="current-balance">${% if expendable_balance is not none %}
+        {{ expendable_balance }}
+    {% else %}
+        {{ total_income - total_expense }}
+    {% endif %}</span></p>
+    </header>
+
+    <div class="flash-messages" id="flash-messages">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+              {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}">
+                      {{ message }}
+                  </div>
+              {% endfor %}
+          {% endif %}
+      {% endwith %}
+  </div>
+    <!-- Financial Sections -->
+    <div class="financial-section">
+      <section class="income">
+        <h2><i class="fas fa-dollar-sign"></i> Total Income <button class="add-btn" id="add-income">+</button></h2>
+        <div class="total">
+          <span id="total-income">${{ total_income }}</span>
+        </div>
+        <ul id="income-list">
+          {% for income in incomes %}
+          <li><i class="fas fa-money-bill-wave"></i> {{ income.category }}: ${{ income.amount }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section class="expense">
+        <h2><i class="fas fa-shopping-cart"></i> Total Expenses <button class="add-btn" id="add-expense">+</button></h2>
+        <div class="total">
+          <span id="total-expense">${{ total_expense }}</span>
+        </div>
+        <ul id="expense-list">
+          {% for expense in expenses %}
+          <li><i class="fas fa-shopping-cart"></i> {{ expense.category }}: ${{ expense.amount }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+    </div>
+
+    <div class="view-records" style="text-align: center; margin-top: 20px;">
+      <a href="{{ url_for('main_routes.records') }}" class="btn">View All Records</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="{{ url_for('api.use') }}">Help</a>
+      <a href="{{ url_for('api.about') }}">Contact</a>
+      <a href="{{ url_for('api.privacy') }}">Privacy Policy</a>
+    </div>
+  </footer>
+
+  <!-- Add Income Modal -->
+<div id="income-modal" class="modal">
+  <div class="modal-content">
+      <span class="close" onclick="document.getElementById('income-modal').style.display='none'">&times;</span>
+      <h3>Add Income</h3>
+      <form id="income-form" action="{{ url_for('api.add_income') }}" method="POST">
+          <input type="text" name="source" placeholder="Source" required>
+          <input type="number" name="amount" placeholder="Amount" required>
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit">Add</button>
+      </form>
+  </div>
+</div>
+
+<!-- Add Expense Modal -->
+<div id="expense-modal" class="modal">
+  <div class="modal-content">
+      <span class="close" onclick="document.getElementById('expense-modal').style.display='none'">&times;</span>
+      <h3>Add Expense</h3>
+      <form id="expense-form" action="{{ url_for('api.add_expense') }}" method="POST">
+          <input type="text" name="category" placeholder="Category" required>
+          <input type="number" name="amount" placeholder="Amount" required>
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit">Add</button>
+      </form>
+  </div>
+</div>
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+          const addIncomeBtn = document.getElementById('add-income');
+          const addExpenseBtn = document.getElementById('add-expense');
+          const incomeModal = document.getElementById('income-modal');
+          const expenseModal = document.getElementById('expense-modal');
+          const closeButtons = document.querySelectorAll('.close');
+
+          addIncomeBtn.onclick = function() {
+              incomeModal.style.display = 'block';
+          }
+
+          addExpenseBtn.onclick = function() {
+              expenseModal.style.display = 'block';
+          }
+
+          closeButtons.forEach(button => {
+              button.onclick = function() {
+                  incomeModal.style.display = 'none';
+                  expenseModal.style.display = 'none';
+              }
+          });
+
+          window.onclick = function(event) {
+              if (event.target === incomeModal || event.target === expenseModal) {
+                  incomeModal.style.display = 'none';
+                  expenseModal.style.display = 'none';
+              }
+          }
+
+          // Hide flash messages after 3 seconds
+          const flashMessages = document.querySelectorAll('.flash-messages .alert');
+          flashMessages.forEach(message => {
+              setTimeout(() => {
+                  message.style.opacity = '0'; // Fade out effect
+                  setTimeout(() => {
+                    message,remove();
+                      message.style.display = 'none'; // Remove from display
+                  }, 300); // Wait for fade out to complete
+              }, 3000); // 3 seconds delay
+          });
+      });
+
+   </script>
+</body>
+</html>

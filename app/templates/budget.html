@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='budget_style.css') }}">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Budget Tracker</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="/home"><i class="fas fa-home"></i> <span>Home</span></a></li>
+            <li><a href="{{ url_for('api.logout')}}"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+            <a href="{{ url_for('main_routes.records') }}" class="view-records">View Records</a>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="page-header">
+            <h1>Budget Dashboard</h1>
+            <p>Track and manage your monthly budget</p>
+        </div>
+
+        <div class="dashboard">
+            <!-- Current Month Budget Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Current Month Budget</h2>
+                    <span id="current-month">{{ current_month }}</span>
+                </div>
+                <div class="current-budget-display">
+                    <h1 id="current-budget-display">${{ current_budget.limit if current_budget else '0' }}</h1>
+                    <span class="plus-icon" id="set-budget-icon" onclick="openSetBudgetModal()" style="{% if current_budget %} display: none; {% endif %}">+</span>
+                    {% if current_budget %}
+                        <button class="btn" id="edit-budget" onclick="editBudgetModal()">Edit Budget</button>
+                    {% endif %}
+                    <button class="btn" id="delete-budget" onclick="openDeleteModal()">Delete Budget</button>
+                </div>
+            </div>
+
+            <!-- Budget Progress Card -->
+<div class="card">
+    <div class="card-header">
+        <h2>Budget Progress</h2>
+    </div>
+    <div class="progress-container">
+        <div class="progress-circle">
+            <svg viewBox="0 0 100 100">
+                <circle class="bg" cx="50" cy="50" r="45"></circle>
+                <circle class="progress" cx="50" cy="50" r="45" id="spent-circle"></circle>
+                <circle class="remaining" cx="50" cy="50" r="45" id="remaining-circle"></circle>
+            </svg>
+            <div class="progress-text">
+                <div class="amount" id="remaining-amount">${{ savings }}</div>
+                <div class="label">Remaining</div>
+            </div>
+        </div>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="value" id="budget-value">${{ current_budget.limit if current_budget else '0' }}</div>
+                <div class="label">Budget</div>
+            </div>
+            <div class="stat-item">
+                <div class="value" id="spent-value">${{ total_expenses }}</div>
+                <div class="label">Spent</div>
+            </div>
+            <div class="stat-item">
+                <div class="value" id="savings-value">${{ savings }}</div>
+                <div class="label">Savings</div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+        <!-- Set Budget Modal -->
+        <div id="setBudgetModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeSetBudgetModal">&times;</span>
+                <h2>Set Budget</h2>
+                <form id="setBudgetForm" method="POST" action="{{ url_for('api.set_budget') }}">
+                    <input type="number" id="new_budget" name="new_budget" placeholder="Enter budget amount" required>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn">Set Budget</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Budget Modal -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeEditModal">&times;</span>
+                <h2>Edit Budget</h2>
+                {% if current_budget %}
+                    <form action="{{ url_for('api.edit_budget', budget_id=current_budget.id) }}" method="POST">
+                        <input type="number" name="new_budget" placeholder="Enter new budget amount" required>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn">Update Budget</button>
+                    </form>
+                {% else %}
+                    <p>No budget available to edit.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Delete Budget Modal -->
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeDeleteModal">&times;</span>
+                <h2>Confirm Deletion</h2>
+                <p>Are you sure you want to delete this budget?</p>
+                {% if current_budget %}
+                    <form action="{{ url_for('api.delete_budget', budget_id=current_budget.id) }}" method="POST">
+                        <button type="submit" class="btn">Yes, Delete</button>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="button" class="btn" id="cancelDelete">Cancel</button>
+                    </form>
+                {% else %}
+                    <p>No budget available to delete.</p>
+                {% endif %}
+            </div>
+        </div>
+       
+
+    <script>
+        // Get modals
+        var editModal = document.getElementById("editModal");
+        var deleteModal = document.getElementById("deleteModal");
+        var setBudgetModal = document.getElementById("setBudgetModal");
+
+        // Get buttons
+        var editButton = document.getElementById("edit-budget");
+        var deleteButton = document.getElementById("delete-budget");
+        var setBudgetIcon = document.getElementById("set-budget-icon");
+
+        // Get close buttons
+        var closeEditModal = document.getElementById("closeEditModal");
+        var closeDeleteModal = document.getElementById("closeDeleteModal");
+        var closeSetBudgetModal = document.getElementById("closeSetBudgetModal");
+        var cancelDelete = document.getElementById("cancelDelete");
+
+        // Open set budget modal
+        function openSetBudgetModal() {
+            setBudgetModal.style.display = "block";
+        }
+
+        // Open edit modal
+        function editBudgetModal() {
+            editModal.style.display = "block";
+        }
+
+        // Open delete modal
+        function openDeleteModal() {
+            deleteModal.style.display = "block";
+        }
+
+        // Close modals
+        closeEditModal.onclick = function() {
+            editModal.style.display = "none";
+        }
+        closeDeleteModal.onclick = function() {
+            deleteModal.style.display = "none";
+        }
+        closeSetBudgetModal.onclick = function() {
+            setBudgetModal.style.display = "none";
+        }
+        cancelDelete.onclick = function() {
+            deleteModal.style.display = "none";
+        }
+
+        // Close modals when clicking outside of them
+        window.onclick = function(event) {
+            if (event.target == editModal) {
+                editModal.style.display = "none";
+            }
+            if (event.target == deleteModal) {
+                deleteModal.style.display = "none";
+            }
+            if (event.target == setBudgetModal) {
+                setBudgetModal.style.display = "none";
+            }
+        }
+        function updateProgressCircle() {
+            const budget = {{ current_budget.limit if current_budget else 0 }};
+            const spent = {{ total_expenses }};
+            const savings = {{ savings }};
+            const spentCircle = document.getElementById("spent-circle");
+            const remainingCircle = document.getElementById("remaining-circle");
+
+            // Calculate the percentage of the budget spent
+            const percentageSpent = (spent / budget) * 100;
+            const radius = 45; // Radius of the circle
+            const circumference = 2 * Math.PI * radius; // Circumference of the circle
+
+            // Set the stroke-dasharray for the spent circle
+            spentCircle.style.strokeDasharray = `${(percentageSpent / 100) * circumference} ${circumference}`;
+            remainingCircle.style.strokeDasharray = `${(100 - percentageSpent) / 100 * circumference} ${circumference}`;
+        }
+
+        // Call the function to update the progress circle on page load
+        window.onload = updateProgressCircle;
+    </script>
+</body>
+</html>
