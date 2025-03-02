@@ -1,0 +1,545 @@
+/* Base styles */
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --primary-light: #eef2ff;
+    --text-dark: #1f2937;
+    --text-medium: #4b5563;
+    --text-light: #6b7280;
+    --bg-light: #f9fafb;
+    --bg-gradient-start: #b6edfc;
+    --bg-gradient-end: #c7fcfe;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --red: #ef4444;
+    --yellow: #f59e0b;
+    --green: #10b981;
+    --radius: 0.5rem;
+    --radius-lg: 0.75rem;
+    --transition: all 0.3s ease;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text-dark);
+    line-height: 1.5;
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    min-height: 100vh;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  ul {
+    list-style: none;
+  }
+  
+  /* Layout */
+  .app-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .sidebar {
+    width: 260px;
+    background-color: rgb(171, 185, 245);
+    box-shadow: var(--shadow-lg);
+    z-index: 40;
+    height: 100vh;
+    position: fixed;
+    transition: var(--transition);
+  }
+  
+  .sidebar-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .app-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+  }
+  
+  .sidebar-nav {
+    flex: 1;
+    padding: 1rem;
+  }
+  
+  .nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    color: var(--text-medium);
+    transition: var(--transition);
+  }
+  
+  .nav-link svg {
+    margin-right: 0.75rem;
+    color: var(--primary-color);
+  }
+  
+  .nav-link:hover {
+    background-color: var(--primary-light);
+  }
+  
+  .nav-link.active {
+    background-color: var(--primary-light);
+    font-weight: 500;
+  }
+  
+  .sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    transition: var(--transition);
+  }
+  
+  .user-info:hover {
+    background-color: var(--primary-light);
+  }
+  
+  .user-info svg {
+    margin-right: 0.5rem;
+    color: var(--primary-color);
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 1rem;
+    margin-left: 260px;
+    overflow-y: auto;
+  }
+  
+  .content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  
+  /* Cards */
+  .card {
+    background-color: rgb(226, 211, 254);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .card-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+  }
+  
+  .card-title svg {
+    margin-right: 0.5rem;
+    color: var(--primary-color);
+  }
+  
+  /* Forms */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .form-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-medium);
+  }
+  
+  .form-group input {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: var(--transition);
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  }
+  
+  .form-actions {
+    margin-top: 1.5rem;
+  }
+  
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--primary-hover);
+  }
+  
+  .btn-secondary {
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--primary-light);
+  }
+  
+ /* Goals */
+.goals-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.goal-item {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1rem;
+  transition: var(--transition);
+  background-color: #fbfcfe;
+}
+
+.goal-item:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.goal-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.75rem;
+}
+
+.goal-title {
+  font-size: 1.325rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.goal-deadline {
+  display: flex;
+  align-items: center;
+  font-size: 0.975rem;
+  color: var(--text-light);
+  margin-top: 0.25rem;
+}
+
+.goal-deadline svg {
+  margin-right: 0.25rem;
+}
+
+.goal-progress {
+  margin-bottom: 0.75rem;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--primary-color);
+  width: var(--progress, 0%);
+  transition: width 0.5s ease;
+}
+
+.progress-percentage {
+  text-align: right;
+  font-size: 1.15rem;
+  color: var(--text-light);
+  margin-top: 0.25rem;
+}
+
+.progress-amounts {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.amount-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.amount-item.target {
+  align-items: flex-end;
+}
+
+.amount-label {
+  font-size: 1.75rem;
+  color: var(--text-light);
+}
+
+.amount-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.goal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.update-goal-btn {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.update-goal-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+.delete-goal-btn {
+  padding: 0.5rem 1rem;
+  background-color:rgb(250, 64, 151);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.delete-goal-btn:hover {
+  background-color: #de1d77;
+}
+  .progress-amounts {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .progress-bar-container {
+    width: 100%;
+    height: 8px; /* Adjust height as needed */
+    background-color: #e5e7eb; /* Background color for the progress bar container */
+    border-radius: 9999px; /* Fully rounded corners */
+    overflow: hidden; /* Ensure the progress bar doesn't overflow */
+}
+
+.progress-bar {
+    height: 100%; /* Full height of the container */
+    background-color: var(--primary-color); /* Use your primary color */
+    width: var(--progress, 0%); /* Use the CSS variable for width, default to 0% */
+    transition: width 0.5s ease; /* Smooth transition for width changes */
+}
+  
+  .progress-percentage {
+    text-align: right;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 0.25rem;
+  }
+  
+  .goal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-light);
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .page-header {
+    margin-bottom: 2rem;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+  
+  .page-subtitle {
+    color: var(--text-medium);
+    margin-top: 0.5rem;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .sidebar {
+      transform: translateX(-100%);
+    }
+    
+    .sidebar.open {
+      transform: translateX(0);
+    }
+    
+    .main-content {
+      margin-left: 0;
+      padding-top: 4rem;
+    }
+    
+    .mobile-menu-button {
+      display: flex;
+    }
+    
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .form-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .goal-header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .goal-actions {
+      flex-direction: row;
+    }
+  }
+
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .modal .btn-danger {
+    background-color: #de1d77; /* Your custom color */
+    color: #ffffff; /* White text color */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Add some padding */
+    font-size: 15px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  .modal .btn-danger:hover {
+    background-color: #c71585; /* Darker shade on hover */
+  }
+
+  .savings-card {
+    margin-top: 20px;
+    margin-left: 290px;
+    margin-right: 20px;
+    background-color: #f9d6f2;
+}
+
+.savings-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.savings-table th, .savings-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.savings-table thead {
+    background-color: rgb(234, 64, 120);
+    color: white;
+}
+
+.savings-table tbody tr:hover {
+    background-color: rgb(244, 155, 196);
+}

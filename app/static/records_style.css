@@ -1,0 +1,297 @@
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #d1f7fe;
+    color: #1f2937;
+    line-height: 1.5;
+}
+
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    position: relative;
+}
+
+/* Mobile menu button */
+.mobile-menu-button {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 50;
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4b5563;
+}
+
+.menu-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 16rem;
+    background-color: rgb(203, 180, 248);
+    box-shadow: 4px 0 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.sidebar-footer {
+    margin-bottom: 10px;
+}
+.app-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #7b14b7;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 1rem;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    color: #4b5563;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-link:hover {
+    background-color: #ede9fe;
+    color: #8846e5;
+}
+
+/* Main content */
+.main-content {
+    flex: 1;
+    padding: 1.5rem;
+    margin-left: 0;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.content-container {
+    max-width: 64rem;
+    margin: 0 auto;
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background-color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #7b74f5;
+    color: white;
+}
+
+tr:hover {
+    background-color: #ded7fc;
+}
+
+/* Button styles */
+button {
+    background-color: #635bf5; /* Primary color */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #3224c7; /* Darker shade on hover */
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 30;
+    display: none;
+}
+
+.overlay.visible {
+    display: block;
+}
+
+/* Media queries for responsive design */
+@media (min-width: 768px) {
+    .mobile-menu-button {
+        display: none;
+    }
+
+    .sidebar {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 16rem;
+    }
+}
+
+/* Modal Background */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.7); /* Dark background with opacity */
+    transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #ffffff; /* White background */
+    margin: 10% auto; /* Centered */
+    padding: 30px; /* Increased padding for a spacious feel */
+    border: none; /* No border */
+    border-radius: 12px; /* Rounded corners */
+    width: 90%; /* Full width on small screens */
+    max-width: 600px; /* Maximum width */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    animation: slideIn 0.3s ease; /* Slide-in animation */
+}
+
+/* Close Button */
+.close {
+    color: #ff4d4d; /* Red color for close button */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #ff1a1a; /* Darker red on hover */
+}
+
+/* Button Styles */
+button {
+    margin-top: 10px;
+    padding: 10px 15px; /* Padding for buttons */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s ease; /* Smooth transition */
+    font-family: 'Poppins', sans-serif; /* Consistent font */
+    font-weight: 600; /* Bold text */
+}
+
+button[type="submit"] {
+    background-color: #4f46e5; /* Primary button color */
+    color: white; /* Text color */
+}
+
+button[type="submit"]:hover {
+    background-color: #4338ca; /* Darker shade on hover */
+}
+
+button[type="button"] {
+    background-color: #f3f4f6; /* Light gray for cancel button */
+    color: #1f2937; /* Dark text color */
+}
+
+button[type="button"]:hover {
+    background-color: #e5e7eb; /* Darker gray on hover */
+}
+
+/* Animation for Modal */
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Input and Textarea Styles */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+textarea {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding */
+    margin-top: 10px; /* Space above */
+    border: 1px solid #d1d5db; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1rem; /* Font size */
+    font-family: 'Poppins', sans-serif; /* Consistent font */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+textarea {
+    height: 100px; /* Fixed height for textarea */
+    resize: none; /* Disable resizing */
+}
+
+/* Heading Styles */
+h3 {
+    color: #1f2937; /* Dark text color */
+    margin-bottom: 20px; /* Space below heading */
+}

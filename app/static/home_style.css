@@ -1,0 +1,331 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8cae1;
+    color: #ffffff;
+}
+
+.menu-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #bf97f7;
+    padding: 20px 20px;
+    color: rgb(91, 39, 220);
+}
+
+.menu-bar .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.menu-bar .menu-items a {
+    color: rgb(80, 34, 198);
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: bold;
+}
+
+.container {
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 36px;
+    margin: 10px;
+    font-family: cursive;
+    color: #0d0000;
+}
+
+header .balance {
+    font-size: 30px;
+    font-weight: bold;
+    color: #0f9d33;
+    font-family: monospace;
+}
+
+.financial-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 35px;
+}
+
+.income, .expense {
+    background-color: #b6d9f3;
+    padding: 20px;
+    margin: 0 10px 10px 10px;
+    border-radius: 8px;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    height: 300px;
+}
+
+.income h2, .expense h2 {
+    margin: 0 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: #0554a2;
+}
+
+.total {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    color: #0d0000;
+}
+
+.total i {
+    margin-right: 10px;
+    color: #093f76;
+   
+}
+
+.add-btn {
+    background-color: #7717fc; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 50%; /* Circular shape */
+    width: 40px; /* Increased width for better appearance */
+    height: 40px; /* Increased height for better appearance */
+    font-size: 20px; /* Font size for the plus sign */
+    cursor: pointer; /* Pointer cursor */
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.add-btn:hover {
+    background-color: #5e14b3; /* Darker shade on hover */
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+ul li {
+    color: #0d0000;
+    font-size: 20px;
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+ul li i {
+    margin-right: 10px;
+    color: #6200ea;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #ba8bfc;
+    color: white;
+}
+
+footer .footer-links a {
+    color: white;
+    text-decoration: none;
+    margin: 10px 10px;
+}
+
+/* Modal Background */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.7); /* Dark background with opacity */
+    transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #ffffff; /* White background */
+    margin: 10% auto; /* Centered */
+    padding: 30px; /* Increased padding for a spacious feel */
+    border: none; /* No border */
+    border-radius: 12px; /* Rounded corners */
+    width: 90%; /* Full width on small screens */
+    max-width: 600px; /* Maximum width */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    animation: slideIn 0.3s ease; /* Slide-in animation */
+}
+
+/* Close Button */
+.close {
+    color: #ff4d4d; /* Red color for close button */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #ff1a1a; /* Darker red on hover */
+}
+
+/* Button Styles */
+button {
+    margin-top: 10px;
+    padding: 10px 15px; /* Padding for buttons */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s ease; /* Smooth transition */
+    font-family: 'Poppins', sans-serif; /* Consistent font */
+    font-weight: 600; /* Bold text */
+}
+
+button[type="submit"] {
+    background-color: #4f46e5; /* Primary button color */
+    color: white; /* Text color */
+}
+
+button[type="submit"]:hover {
+    background-color: #4338ca; /* Darker shade on hover */
+}
+
+button[type="button"] {
+    background-color: #f3f4f6; /* Light gray for cancel button */
+    color: #1f2937; /* Dark text color */
+}
+
+button[type="button"]:hover {
+    background-color: #e5e7eb; /* Darker gray on hover */
+}
+
+/* Animation for Modal */
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Input and Textarea Styles */
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding */
+    margin-top: 10px; /* Space above */
+    border: 1px solid #d1d5db; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1rem; /* Font size */
+    font-family: 'Poppins', sans-serif; /* Consistent font */
+}
+
+textarea {
+    height: 100px; /* Fixed height for textarea */
+    resize: none; /* Disable resizing */
+}
+
+/* Heading Styles */
+h3 {
+    color: #1f2937; /* Dark text color */
+    margin-bottom: 20px; /* Space below heading */
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #569eea;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.view-records {
+    margin-top: 2px; /* Space above the button */
+}
+
+.view-records .btn {
+    display: inline-block; /* Center the button */
+    padding: 10px 20px; /* Padding for the button */
+    background-color: #4343f7; /* Primary button color */
+    color: rgb(255, 255, 255); /* Text color */
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease; /* Smooth transition */
+    margin-bottom: 30px;
+}
+
+.view-records .btn:hover {
+    background-color: #1c0fa2; /* Darker shade on hover */
+}
+.alert-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.7); /* Black background with transparency */
+    color: rgb(14, 5, 5); /* White text */
+    text-align: center; /* Centered text */
+    padding-top: 20%; /* Position the text */
+  }
+  .alert-modal p {
+    font-size: 20px; /* Larger text */
+  }
+
+  .flash-messages {
+    margin: 20px 0;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #cc0d0d;
+    background-color: #ffd3e8;
+    margin-left: 150px;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
