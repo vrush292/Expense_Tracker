@@ -24,7 +24,7 @@
     <header>
       <h1>Let me see your pocket ^^</h1>
       <p class="balance">This Month Expendable Balance: 
-        <span id="current-balance">${% if expendable_balance is not none %}
+        <span id="current-balance">₹{% if expendable_balance is not none %}
         {{ expendable_balance }}
     {% else %}
         {{ total_income - total_expense }}
@@ -47,26 +47,34 @@
       <section class="income">
         <h2><i class="fas fa-dollar-sign"></i> Total Income <button class="add-btn" id="add-income">+</button></h2>
         <div class="total">
-          <span id="total-income">${{ total_income }}</span>
+            <span id="total-income">₹{{ total_income }}</span>
         </div>
         <ul id="income-list">
-          {% for income in incomes %}
-          <li><i class="fas fa-money-bill-wave"></i> {{ income.category }}: ${{ income.amount }}</li>
-          {% endfor %}
+            {% if incomes and incomes|length > 0 %}
+                {% for income in incomes|reverse %}
+                <li><i class="fas fa-money-bill-wave"></i> {{ income.category }}: ₹{{ income.amount }}</li>
+                {% endfor %}
+            {% else %}
+                <li>No income records available.</li>
+            {% endif %}
         </ul>
-      </section>
-
-      <section class="expense">
+    </section>
+    
+    <section class="expense">
         <h2><i class="fas fa-shopping-cart"></i> Total Expenses <button class="add-btn" id="add-expense">+</button></h2>
         <div class="total">
-          <span id="total-expense">${{ total_expense }}</span>
+            <span id="total-expense">₹{{ total_expense }}</span>
         </div>
         <ul id="expense-list">
-          {% for expense in expenses %}
-          <li><i class="fas fa-shopping-cart"></i> {{ expense.category }}: ${{ expense.amount }}</li>
-          {% endfor %}
+            {% if expenses and expenses|length > 0 %}
+                {% for expense in expenses|reverse %}
+                <li><i class="fas fa-shopping-cart"></i> {{ expense.category }}: ₹{{ expense.amount }}</li>
+                {% endfor %}
+            {% else %}
+                <li>No expense records available.</li>
+            {% endif %}
         </ul>
-      </section>
+    </section>
     </div>
 
     <div class="view-records" style="text-align: center; margin-top: 20px;">
