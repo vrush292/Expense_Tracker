@@ -9,16 +9,26 @@
 </head>
 <body>
     <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <h2>Budget Tracker</h2>
-        </div>
-        <ul class="sidebar-menu">
-            <li><a href="/home"><i class="fas fa-home"></i> <span>Home</span></a></li>
-            <li><a href="{{ url_for('api.logout')}}"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
-            <a href="{{ url_for('main_routes.records') }}" class="view-records">View Records</a>
-        </ul>
+   <!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h2>Budget Tracker</h2>
     </div>
+    <ul class="sidebar-menu">
+        <li><a href="/home"><i class="fas fa-home"></i> <span>Home</span></a></li>
+        <li><a href="{{ url_for('main_routes.records') }}" class="view-records"><i class="fas fa-file-alt"></i> <span>View Records</span></a></li>
+        <li><a href="{{ url_for('api.logout') }}"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+    </ul>
+    <div class="sidebar-footer">
+        <a href="/profile" class="user-info">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span class="user-name">{{ current_user.username }}</span>
+        </a>
+    </div>
+</div>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -35,7 +45,7 @@
                     <span id="current-month">{{ current_month }}</span>
                 </div>
                 <div class="current-budget-display">
-                    <h1 id="current-budget-display">${{ current_budget.limit if current_budget else '0' }}</h1>
+                    <h1 id="current-budget-display">₹{{ current_budget.limit if current_budget else '0' }}</h1>
                     <span class="plus-icon" id="set-budget-icon" onclick="openSetBudgetModal()" style="{% if current_budget %} display: none; {% endif %}">+</span>
                     {% if current_budget %}
                         <button class="btn" id="edit-budget" onclick="editBudgetModal()">Edit Budget</button>
@@ -57,21 +67,21 @@
                 <circle class="remaining" cx="50" cy="50" r="45" id="remaining-circle"></circle>
             </svg>
             <div class="progress-text">
-                <div class="amount" id="remaining-amount">${{ savings }}</div>
+                <div class="amount" id="remaining-amount">₹{{ savings }}</div>
                 <div class="label">Remaining</div>
             </div>
         </div>
         <div class="stats">
             <div class="stat-item">
-                <div class="value" id="budget-value">${{ current_budget.limit if current_budget else '0' }}</div>
+                <div class="value" id="budget-value">₹{{ current_budget.limit if current_budget else '0' }}</div>
                 <div class="label">Budget</div>
             </div>
             <div class="stat-item">
-                <div class="value" id="spent-value">${{ total_expenses }}</div>
+                <div class="value" id="spent-value">₹{{ total_expenses }}</div>
                 <div class="label">Spent</div>
             </div>
             <div class="stat-item">
-                <div class="value" id="savings-value">${{ savings }}</div>
+                <div class="value" id="savings-value">₹{{ savings }}</div>
                 <div class="label">Savings</div>
             </div>
         </div>
